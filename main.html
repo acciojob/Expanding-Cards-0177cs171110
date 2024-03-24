@@ -5,77 +5,74 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Expanding Cards</title>
 <style>
-  body {
+  .container {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
-    margin: 0;
-    background-color: #f0f0f0;
-  }
-
-  .container {
-    display: flex;
+    gap: 20px;
   }
 
   .panel {
-    flex: 1;
-    max-width: 200px;
+    width: 200px;
+    height: 200px;
     overflow: hidden;
-    transition: max-width 0.3s ease;
-    cursor: pointer;
+    border-radius: 10px;
+    transition: all 0.3s ease-in-out;
   }
 
   .panel.active {
-    max-width: 400px;
+    width: 300px;
+    height: 300px;
   }
 
   .panel img {
     width: 100%;
-    height: auto;
+    height: 100%;
+    object-fit: cover;
   }
 
   .img-text {
-    text-align: center;
-    margin-top: 10px;
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    color: #fff;
+    font-size: 18px;
   }
 </style>
 </head>
 <body>
 <div class="container">
-  <div id="panel-1" class="panel active" onclick="toggleActive('panel-1')">
+  <div id="panel-1" class="panel active" onclick="expandCard('panel-1')">
     <img src="https://images.unsplash.com/photo-1558979158-65a1eaa08691?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80" alt="Image 1">
     <div class="img-text">Explore the world</div>
   </div>
-  <div id="panel-2" class="panel" onclick="toggleActive('panel-2')">
+  <div id="panel-2" class="panel" onclick="expandCard('panel-2')">
     <img src="https://images.unsplash.com/photo-1572276596237-5db2c3e16c5d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80" alt="Image 2">
     <div class="img-text">Wild Forest</div>
   </div>
-  <div id="panel-3" class="panel" onclick="toggleActive('panel-3')">
+  <!-- Add more panels for other images -->
+	<div id="panel-3" class="panel">
     <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1353&q=80" alt="Image 3">
     <div class="img-text">City on Winter</div>
   </div>
-  <div id="panel-4" class="panel" onclick="toggleActive('panel-4')">
+  <div id="panel-4" class="panel">
     <img src="https://images.unsplash.com/photo-1551009175-8a68da93d5f9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1351&q=80" alt="Image 4">
     <div class="img-text">Mountain Cloud</div>
   </div>
-  <div id="panel-5" class="panel" onclick="toggleActive('panel-5')">
+  <div id="panel-5" class="panel">
     <img src="https://images.unsplash.com/photo-1549880338-65ddcdfd017b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80" alt="Image 5">
     <div class="img-text">Sunny Beach</div>
   </div>
 </div>
 <script>
-  function toggleActive(panelId) {
-    const panel = document.getElementById(panelId);
+  function expandCard(panelId) {
     const panels = document.querySelectorAll('.panel');
-
-    panels.forEach(p => {
-      p.classList.remove('active');
+    panels.forEach(panel => {
+      panel.classList.remove('active');
     });
-
-    panel.classList.add('active');
+    const selectedPanel = document.getElementById(panelId);
+    selectedPanel.classList.add('active');
   }
 </script>
 </body>
 </html>
-
