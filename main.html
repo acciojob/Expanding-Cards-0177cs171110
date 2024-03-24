@@ -9,49 +9,57 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 20px;
+    height: 100vh;
+    background-color: #f5f5f5;
   }
 
   .panel {
     width: 200px;
-    height: 200px;
-    overflow: hidden;
-    border-radius: 10px;
-    transition: all 0.3s ease-in-out;
-  }
-
-  .panel.active {
-    width: 300px;
     height: 300px;
+    margin: 10px;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
   }
 
-  .panel img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  .panel.shrinked {
+    transform: scale(0.9);
+  }
+
+  .panel.expanding {
+    transform: scale(1.2);
   }
 
   .img-text {
+    text-align: center;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
     position: absolute;
-    bottom: 10px;
-    left: 10px;
-    color: #fff;
-    font-size: 18px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  .panel:hover .img-text {
+    opacity: 1;
   }
 </style>
 </head>
 <body>
 <div class="container">
-  <div id="panel-1" class="panel active" onclick="expandCard('panel-1')">
+  <div id="panel-1" class="panel active">
     <img src="https://images.unsplash.com/photo-1558979158-65a1eaa08691?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80" alt="Image 1">
     <div class="img-text">Explore the world</div>
   </div>
-  <div id="panel-2" class="panel" onclick="expandCard('panel-2')">
+  <div id="panel-2" class="panel">
     <img src="https://images.unsplash.com/photo-1572276596237-5db2c3e16c5d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80" alt="Image 2">
     <div class="img-text">Wild Forest</div>
   </div>
-  <!-- Add more panels for other images -->
-	<div id="panel-3" class="panel">
+  <div id="panel-3" class="panel">
     <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1353&q=80" alt="Image 3">
     <div class="img-text">City on Winter</div>
   </div>
@@ -65,14 +73,21 @@
   </div>
 </div>
 <script>
-  function expandCard(panelId) {
-    const panels = document.querySelectorAll('.panel');
+  const panels = document.querySelectorAll('.panel');
+
+  function expandCard() {
     panels.forEach(panel => {
       panel.classList.remove('active');
+      panel.classList.add('shrinked');
     });
-    const selectedPanel = document.getElementById(panelId);
-    selectedPanel.classList.add('active');
+
+    this.classList.remove('shrinked');
+    this.classList.add('active');
   }
+
+  panels.forEach(panel => {
+    panel.addEventListener('click', expandCard);
+  });
 </script>
 </body>
 </html>
